@@ -46,5 +46,5 @@ ML Classifier → Gemini API → Result Storage (Firebase)
 This project includes a working MVP implemented in Google Colab.
 
 👉 Open Notebook:  
-https://colab.research.google.com/github/KShruti772/ai-sound-fault-detection/blob/main/model_code/audio_fault_detection_mvp.ipynb
+https://colab.research.google.com/github/KShruti772/ai-sound-fault-detection/blob/main/model_code/audio_fault_detection_mvp.ipynb.ipynb
 
