@@ -1,3 +1,5 @@
+⚠ This project is an MVP built for hackathon demonstration purposes.
+
 # AI-based Machine Fault Detection using Sound
 
 ## 📌 Problem Statement
