@@ -40,3 +40,7 @@ ML Classifier → Gemini API → Result Storage (Firebase)
 - Edge AI deployment
 - Multi-machine monitoring
 - Real-time alerts
+
+## 🔗 Colab Notebook (MVP)
+[WhisperNet Audio ML MVP]
+https://colab.research.google.com/drive/16YjwXQYVnFcP-wAgiw1ktUaJ-OpYsu-y?usp=sharing
