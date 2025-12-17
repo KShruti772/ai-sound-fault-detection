@@ -41,6 +41,10 @@ ML Classifier → Gemini API → Result Storage (Firebase)
 - Multi-machine monitoring
 - Real-time alerts
 
-## 🔗 Colab Notebook (MVP)
-[WhisperNet Audio ML MVP]
-https://colab.research.google.com/drive/16YjwXQYVnFcP-wAgiw1ktUaJ-OpYsu-y?usp=sharing
+## 🔗 MVP Colab Notebook
+
+This project includes a working MVP implemented in Google Colab.
+
+👉 Open Notebook:  
+https://colab.research.google.com/github/KShruti772/ai-sound-fault-detection/blob/main/model_code/audio_fault_detection_mvp.ipynb
+
