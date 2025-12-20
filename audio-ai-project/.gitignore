@@ -1,7 +1,20 @@
+# Virtual environment & system files
 venv/
-.env
-__pycache__/
+_pycache_/
 *.pyc
 .vscode/
 .DS_Store
+
+# Secrets (NEVER push)
+.env
 firebase-key.json
+
+# Ignore full datasets
+data/
+*.wav
+*.mp3
+
+# Allow only sample audio files
+!audio_samples/
+!audio_samples/*.wav
+!audio_samples/*.mp3
