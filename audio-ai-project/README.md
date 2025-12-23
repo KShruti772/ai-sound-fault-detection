@@ -1,38 +1,30 @@
-# audio-ai-project
+# 🔊 WhisperNet  
+### AI‑Based Machine Fault Detection System
 
-Project scaffold for audio AI MVP.
+WhisperNet is an end‑to‑end machine fault detection system that uses **audio signal analysis and machine learning** to detect abnormal machine behavior in real time.  
+The system listens to machine sounds, extracts MFCC features, classifies machine health, and visualizes results on a live dashboard.
 
-## Setup (Windows)
+---
 
-1. Create a virtual environment and install dependencies:
+## 🚀 Problem Statement
+Mechanical faults often produce abnormal sounds before complete failure.  
+Manual monitoring is inefficient and error‑prone.
 
-```powershell
-.\scripts\setup_venv.ps1
-```
+**WhisperNet solves this by providing automated, real‑time fault detection using sound.**
 
-2. Activate the environment:
+---
 
-PowerShell:
+## 🧠 Solution Overview
+WhisperNet continuously listens to machine sounds, processes them using the same feature pipeline used during training, and predicts whether the machine is operating normally or faultily.
 
-.\venv\Scripts\Activate.ps1
+Key highlights:
+- Real‑time audio capture using ESP32
+- MFCC‑based feature extraction
+- Machine learning classification
+- Live dashboard visualization
+- AI‑generated fault explanation and corrective suggestions
 
-Command Prompt:
+---
 
-venv\Scripts\activate.bat
+## 🏗️ System Architecture
 
-## Service credentials
-
-1. Create a `.env` file at the project root based on `.env.example` and fill in values for:
-   - `FIREBASE_CREDENTIALS` — path to your Firebase service account JSON (e.g. `firebase-key.json`).
-   - `GEMINI_API_KEY` — your Google Gemini API key.
-
-2. Place your Firebase service account JSON in the project root (or another path) and set `FIREBASE_CREDENTIALS` accordingly. Example:
-
-```
-FIREBASE_CREDENTIALS=firebase-key.json
-GEMINI_API_KEY=your_gemini_key_here
-```
-
-3. The repository `.gitignore` already ignores `.env` and `firebase-key.json` so credentials won't be committed accidentally.
-
-If Firestore credentials are missing, the app will continue running but Firestore saves will be skipped with a clear message.
