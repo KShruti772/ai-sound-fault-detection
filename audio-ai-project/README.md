@@ -1,115 +1,138 @@
-# 🔊 WhisperNet  
-### AI‑Based Machine Fault Detection System
+# WhisperNet
 
-WhisperNet is an end‑to‑end machine fault detection system that uses **audio signal analysis and machine learning** to detect abnormal machine behavior in real time.  
-The system listens to machine sounds, extracts MFCC features, classifies machine health, and visualizes results on a live dashboard.
+AI‑Based Machine Fault Detection System
 
----
-
-## 🚀 Problem Statement
-Mechanical faults often produce abnormal sounds before complete failure.  
-Manual monitoring is inefficient and error‑prone.
-
-**WhisperNet solves this by providing automated, real‑time fault detection using sound.**
+WhisperNet is a hackathon-ready prototype that performs real-time machine fault detection using audio captured from an ESP32. It extracts MFCC features, classifies machine health with a trained Random Forest, and visualizes results on a Streamlit dashboard for intuitive, actionable insights.
 
 ---
 
-## 🧠 Solution Overview
-WhisperNet continuously listens to machine sounds, processes them using the same feature pipeline used during training, and predicts whether the machine is operating normally or faultily.
+## Problem Statement
 
-Key highlights:
-- Real‑time audio capture using ESP32
-- MFCC‑based feature extraction
-- Machine learning classification
-- Live dashboard visualization
-- AI‑generated fault explanation and corrective suggestions
+Mechanical faults often manifest as subtle changes in sound long before catastrophic failure. Manual inspection is time-consuming and reactive. Teams need an automated, low-cost, real‑time method to detect developing faults and surface clear corrective actions during operation.
 
 ---
 
-## 🏗️ System Architecture
+## Solution Overview
 
-
----
-
-## 🧩 Components
-
-### 1️⃣ Hardware
-- ESP32
-- MAX4466 microphone
-- USB serial communication
-
-### 2️⃣ Feature Extraction
-- MFCC (Mel Frequency Cepstral Coefficients)
-- 20 MFCC features
-- Mean aggregation over time window
-
-### 3️⃣ Machine Learning Model
-- Algorithm: **Random Forest Classifier**
-- Classes: `NORMAL`, `FAULTY`
-- Accuracy: ~94% on test data
-
-### 4️⃣ Dashboard
-- Built using Streamlit
-- Displays:
-  - Live machine status
-  - RMS sound level
-  - Fault explanation
-  - Recommended corrective action
-  - Prediction history
+WhisperNet listens to machine audio via an ESP32-mounted microphone, extracts robust acoustic features (20 MFCCs averaged over a time window), and uses a pre-trained Random Forest classifier to label operation as NORMAL or FAULTY. Results — including RMS, a short explanation of the likely cause, and a suggested corrective action — are written to a simple record file and displayed on a live Streamlit dashboard for operators and judges.
 
 ---
 
-## 📊 Dataset
-- Machine audio recordings
-- Normal operation sounds
-- Faulty operation sounds
-- Audio preprocessed and converted to MFCC features
+## System Architecture
+
+Simple text diagram:
+
+ESP32 (MAX4466 mic) --USB Serial--> live_predict_esp32.py (read & buffer audio)  
+ --> feature extraction (MFCC, mean) --> RandomForest model --> data/live_predictions.csv  
+ --> Streamlit dashboard (WhisperNet) reads CSV and displays live status & history
 
 ---
 
-## ⚙️ Installation & Setup
+## Components
 
-### 🔹 Clone Repository
+### Hardware
+
+- ESP32 microcontroller
+- MAX4466 (or similar) electret microphone amplifier
+- USB connection for serial audio streaming to the host machine
+
+### Feature Extraction
+
+- Mel-frequency cepstral coefficients (MFCC)
+- n_mfcc = 20
+- Mean of each coefficient across a fixed time window (1s or configurable)
+- n_fft/hop_length chosen to match buffer size for reliable extraction
+
+### Machine Learning Model
+
+- Algorithm: Random Forest Classifier
+- Labels: `NORMAL` (0) and `FAULTY` (1)
+- Trained offline on MFCC-processed examples from normal and faulty machine states
+
+### Dashboard
+
+- Streamlit application: "WhisperNet"
+- Live view: current status (big, colored), latest RMS, cause & solution (for FAULTY), and recent prediction history (last 20)
+- Uses a simple CSV file (data/live_predictions.csv) for process-safe communication between the predictor and UI
+
+---
+
+## Dataset
+
+- Collection of raw .wav audio files from machines under normal and faulty conditions
+- Preprocessing: channel conversion, consistent sample rate (16 kHz), windowing, MFCC extraction (20 coefficients), mean aggregation
+- Split into training/validation/test for model development
+
+---
+
+## Installation & Setup
+
+Run the following commands:
+
 ```bash
 git clone https://github.com/KShruti772/ai-sound-fault-detection
-cd whispernet
-
-
-# audio-ai-project
-
-Project scaffold for audio AI MVP.
-
-## Setup (Windows)
-
-1. Create a virtual environment and install dependencies:
-
-```powershell
-.\scripts\setup_venv.ps1
+cd ai-sound-fault-detection
+python -m venv venv
+pip install -r requirements.txt
 ```
 
-2. Activate the environment:
+---
 
-PowerShell:
+## How to Run
 
-.\venv\Scripts\Activate.ps1
+1. Connect the ESP32 (with microphone) to the host via USB and ensure the correct serial port (e.g., COM5 on Windows).
+2. Start the live predictor (reads serial audio, extracts features, runs model, appends CSV):
+   ```bash
+   python live_predict_esp32.py
+   ```
 
-Command Prompt:
+   - Edit PORT variable in the script if needed.
+3. Open the dashboard in a browser:
+   ```bash
+   streamlit run dashboard.py
+   ```
+4. The dashboard auto-refreshes and will show the latest prediction, RMS, and suggested action.
 
-venv\Scripts\activate.bat
+---
 
-## Service credentials
+## Live Demonstration
 
-1. Create a `.env` file at the project root based on `.env.example` and fill in values for:
-   - `FIREBASE_CREDENTIALS` — path to your Firebase service account JSON (e.g. `firebase-key.json`).
-   - `GEMINI_API_KEY` — your Google Gemini API key.
+- Run the ESP32 streaming firmware and the host predictor as above.
+- Present dashboard in full-screen mode for judges.
+- Demo points:
+  - Show a baseline NORMAL reading (low RMS, green badge).
+  - Introduce a mechanical fault or simulated noise; observe FAULTY detection and explanation.
+  - Highlight the prediction history and RMS trends.
 
-2. Place your Firebase service account JSON in the project root (or another path) and set `FIREBASE_CREDENTIALS` accordingly. Example:
+---
 
-```
-FIREBASE_CREDENTIALS=firebase-key.json
-GEMINI_API_KEY=your_gemini_key_here
-```
+## Use Cases
 
-3. The repository `.gitignore` already ignores `.env` and `firebase-key.json` so credentials won't be committed accidentally.
+- Predictive maintenance for rotating machinery (motors, fans, pumps)
+- Early detection of bearing wear, misalignment, looseness, or friction
+- Low-cost machine health monitoring in small industrial setups
+- Demonstration/prototyping platform for audio-based anomaly detection
 
-If Firestore credentials are missing, the app will continue running but Firestore saves will be skipped with a clear message.
+---
+
+## Hackathon Value
+
+- End-to-end demoable: hardware → model → live dashboard
+- Strong storytelling potential: show clear before/after behavior with RMS and explanation
+- Lightweight and reproducible: runs on commodity hardware (ESP32 + laptop)
+- Judges can interact in real time and observe model decisions and suggested corrective actions
+
+---
+
+## Future Improvements
+
+- Improve robustness: add calibration and automatic gain control (AGC) on the capture side
+- Add localization: multi-mic array to find fault source
+- Model enhancements: time-series models or ensemble of models for higher sensitivity and lower false positives
+- Edge inference: run a lightweight model on the ESP32 (or Raspberry Pi) to reduce host dependency
+- Enhanced UI: trend charts, alert thresholds, and email/SMS notifications for critical faults
+- Dataset expansion: more machine types, loads, and fault modes to generalize across equipment
+
+---
+
+Thank you for exploring WhisperNet — a compact, practical demonstration of AI + Audio + IoT for real-world predictive maintenance.
