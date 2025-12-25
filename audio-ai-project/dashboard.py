@@ -345,4 +345,9 @@ components.html(
 
 # Optionally expose a manual refresh button
 if st.button("Refresh now"):
-    st.experimental_rerun()
+	# Try server-side rerun if available, otherwise do a client-side reload
+	if hasattr(st, "experimental_rerun"):
+		st.experimental_rerun()
+	else:
+		# components already imported above; use a tiny HTML reload as fallback
+		components.html("<script>location.reload()</script>", height=0)
