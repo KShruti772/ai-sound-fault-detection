@@ -43,10 +43,22 @@ ML Classifier → Gemini API → Result Storage (Firebase)
 - Multi-machine monitoring
 - Real-time alerts
 
-## 🔗 MVP Colab Notebook
+## 🧪 Model Training (Initial MVP)
+The initial model experimentation and training were done using a Google Colab notebook.
+This helped in:
+- Dataset exploration
+- MFCC feature extraction experiments
+- Model selection and validation
 
-This project includes a working MVP implemented in Google Colab.
-
-👉 Open Notebook:  
+📓 Colab Notebook (for reference only):
 https://colab.research.google.com/github/KShruti772/ai-sound-fault-detection/blob/main/model_code/audio_fault_detection_mvp.ipynb.ipynb
 
+
+## 🔄 Current Implementation
+The final system has been migrated from Colab to a full Python project
+with real-time audio input, trained model loading, and a deployed dashboard.
+
+
+## 🚀 Live MVP
+🔗 Streamlit App: https://ai-sound-fault-detection-xxxxx.streamlit.app  
+🔗 GitHub Repo: https://github.com/KShruti772/ai-sound-fault-detection
