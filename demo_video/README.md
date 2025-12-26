@@ -1,4 +1,3 @@
-# Demo Video
+# Demo Video link
 
-This folder will contain the demo video
-showing the working and MVP of the project.
+https://drive.google.com/file/d/1_nYJAneUDkskzpPZYJkdRi0Ok7UniL5Y/view?usp=drivesdk​
