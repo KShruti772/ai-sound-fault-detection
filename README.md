@@ -33,10 +33,9 @@ ML Classifier → Gemini API → Result Storage (Firebase)
 - Gemini Explanation: Possible bearing misalignment detected
 
 ## 👥 Team Members
-- Member 1: ESP32 + Hardware
-- Member 2: Data & Audio Processing
-- Member 3: ML Model
-- Member 4: Gemini + Firebase
+- Member 1: ESP32 + Hardware and Gemini + Firebase
+- Member 2: Data & Audio Processing and ML Model
+
 
 ## 🔮 Future Scope
 - Edge AI deployment
